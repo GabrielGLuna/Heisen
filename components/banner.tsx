@@ -6,6 +6,7 @@ import { Play, Plus, Info } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
 type HeroBannerProps = {
+  helloWorld?:string
   title?: string
   synopsis?: string
   backgroundSrc?: string
