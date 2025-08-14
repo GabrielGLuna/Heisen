@@ -14,18 +14,17 @@ interface DataType{
 export default function Page() {
   const [message,setMessage] = useState('');
 
-  useEffect(()=>{
+  const hola= ()=>{
     fetch('http://localhost:8000/api/hello/')
     .then(response=>response.json())
     .then(data => setMessage(data.message))
     .catch(error=>console.log(error))
-  }, []);
+  }
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white">
       <AppShell>
         <main className="flex flex-col">
-          {}
           <HeroBanner />
 
           <div className="mt-6 space-y-8 pb-16">
@@ -40,9 +39,6 @@ export default function Page() {
         <img src="/images/netflix-hover.png" alt="Referencia de preview Netflix" />
         <img src="/images/max-sidebar.png" alt="Referencia de sidebar Max" />
       </div>
-      
-      <h2>{message}</h2>
-      <iframe src="https://www.2embed.cc/embed/tt31868189" width="100%" height="100%"></iframe>
     </div>
   )
 }

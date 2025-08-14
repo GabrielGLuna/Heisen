@@ -2,8 +2,12 @@
 
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { Input } from "./ui/input"
 import { Play, Plus, Info } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { Search } from "lucide-react"
+import { use, useState } from "react"
+import { useRouter } from "next/navigation"
 
 type HeroBannerProps = {
   helloWorld?:string
@@ -19,8 +23,16 @@ export function HeroBanner({
   backgroundSrc = "/images/prime-hero.png",
   badges = ["Es cine 🚬", "18+"],
 }: HeroBannerProps) {
+  const [movie_to_search, setMovie_to_search]=useState('');
+  const router = useRouter()
+
+  const search_button= () =>{
+    const q = movie_to_search
+    router.push(`\search_results?q=${encodeURIComponent(q)}`)
+  }
+
   return (
-    <section className="relative w-full overflow-hidden">
+    <section className="relative w-full overflow-hidden">      
       <div className="relative h-[58vh] min-h-[460px] w-full">
         <Image
           src={backgroundSrc || "/placeholder.svg"}
@@ -32,8 +44,20 @@ export function HeroBanner({
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
       </div>
 
-      <div className="absolute inset-0 z-10 flex items-center">
-        <div className="container mx-auto px-4 md:px-8">
+      <div className="absolute inset-0 z-10 flex flex-col justify-center">
+        <div className="w-full flex flex-row justify-center">
+          <Input placeholder="buscar" 
+          className="max-w-xl md:max-w-2xl" 
+          id="name_movie"
+          value={movie_to_search}  
+          onChange={(text) => setMovie_to_search(text.target.value)}          
+          />
+          <Button className="ml-[2%]" variant="secondary" onClick={search_button}>
+          <Search ></Search>
+          </Button>
+        </div>
+        <div className="container mx-auto px-4 md:px-8 flex items-center">
+          <div> </div>
           <div className="max-w-xl md:max-w-2xl">
             <div className="text-emerald-300 text-xs font-semibold tracking-wide">{"#1 en tendencias"}</div>
             <h1 className="mt-2 text-4xl md:text-6xl font-extrabold tracking-tight text-white">{title}</h1>
@@ -71,7 +95,7 @@ export function HeroBanner({
             </div>
           </div>
         </div>
-      </div>
+      </div>      
     </section>
   )
 }
